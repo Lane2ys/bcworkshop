@@ -50,52 +50,52 @@ class Beyblade extends EventEmitter {
     /**
      * Attaches a special to the Bey
      * @arg {Special} special The special to be added.
-     * @returns {Array}
+     * @returns {Beyblade}
      */
     attachSpecial(special){
         if(special instanceof Special !== true) throw new Error("Specials must be an instance of the Special class.");
         this.specials.push(special);
-        return this.specials;
+        return this;
     }
     /**
      * Attaches a passive to the Bey.
      * @arg {Passive} passive The passive to be added.
-     * @returns {Array}
+     * @returns {Beyblade}
      */
     attachPassive(passive){
         if(passives instanceof Passive !== true) throw new Error("Passives must be an instance of the Passive class.");
         this.passives.push(passive);
-        return this.passives;
+        return this;
     }
     /**
      * Attaches a mode to the Bey.
      * @arg {Mode} mode The mode to be attached.
-     * @returns {Array}
+     * @returns {Beyblade}
      */
     attachMode(mode){
         if(mode instanceof Mode !== true) throw new Error("Modes must be an instance of the Mode class.");
         this.modes.push(mode);
-        return this.modes;
+        return this;
     }
     /**
      * Sets the possibly of a spin direction change.
      * @arg {Boolean} changable The possibility referenced by a Boolean.
-     * @returns {Boolean}
+     * @returns {Beyblade}
      */
     setSDChangable(changable){
         if(!changable || typeof changable !== "boolean") throw new Error("A Boolean must be used to define whether the spin direction of the Bey should be changable.");
         this.sdchangable = changable;
-        return this.sdchangable;
+        return this;
     }
     /**
      * Sets the default spin direction for the Bey to be in if not changed by the player.
      * @arg {String} value Must be either "Left" or "Right"
-     * @returns {String}
+     * @returns {Beyblade}
      */
     setDefaultSD(value){
         if(!value || value !== "Left" || value !== "Right") throw new Error("Spin direction value must be either \"Left\" or \"Right\", CASE SENSITIVE!!");
         this.sd = value;
-        return this.sd;
+        return this;
     }
 }
 
