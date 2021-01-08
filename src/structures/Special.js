@@ -1,6 +1,6 @@
 /**
  * @prop {String} name The name of the special move.
- * @prop {function} requirement The function used to define whether the special is executable. MUST RETURN A BOOLEAN!
+ * @prop {function} requirement The function used to define whether the special is executable.
  * @prop {function} special The actual special move to be executed.
  */
 

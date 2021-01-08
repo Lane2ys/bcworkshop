@@ -18,5 +18,20 @@
   "bugs": {
     "url": "https://github.com/SunSOG/bcworkshop/issues"
   },
-  "homepage": "https://github.com/SunSOG/bcworkshop#readme"
+  "homepage": "https://github.com/SunSOG/bcworkshop#readme",
+  "dependencies": {
+    "uglify-es": "github:mishoo/UglifyJS#harmony"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-sort-class-members": "^1.8.0",
+    "typescript": "^3.4.3"
+  },
+  "optionalDependencies": {
+    "eventemitter3": "^4.0.7",
+    "discord.js": "^12.3.1"
+  }
 }

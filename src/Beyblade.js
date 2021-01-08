@@ -93,7 +93,7 @@ class Beyblade extends EventEmitter {
      * @returns {Beyblade}
      */
     setDefaultSD(value){
-        if(!value || value !== "Left" || value !== "Right") throw new Error("Spin direction value must be either \"Left\" or \"Right\", CASE SENSITIVE!!");
+        if(!value || (value.toLowerCase() !== "left" && value.toLowerCase() !== "right")) throw new Error("Spin direction value must be either \"left\" or \"right\"!");
         this.sd = value;
         return this;
     }

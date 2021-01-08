@@ -8,6 +8,7 @@ try{
 }
 
 const fs = require("fs");
+const UglifyJS = require("uglify-es");
 
 const Beyblade = require("./Beyblade");
 const Passive = require("./structures/Passive");
@@ -51,8 +52,26 @@ class Workshop extends EventEmitter {
         directory.forEach(name => {
             let bey = require(`${this.directoryPath}/${name}`);
             if(bey instanceof Beyblade !== true) throw new Error(`${this.directoryPath}/${name} is not a Beyblade!`);
-            let code = `const Beyblade = require("./Beyblade.js"); class ${bey.name} extends Beyblade {} module.exports = ${bey.name};`;
-            fs.writeFileSync(`${this.outputPath}/${name}`, code);
+            let shortened = bey.name.replace(/\W/g, "");
+            let code = `const Beyblade=require("./Beyblade.js");class ${shortened} extends Beyblade{constructor(){super("${bey.name}","${bey.type}","${bey.imageLink}");this.specials=[`;
+            for(var i = 0; i < bey.specials.length; i++){
+                if(i >= 1) code += ",";
+                code += `{name:"${bey.specials[i].name}",requires:${bey.specials[i].requirement},execute:${bey.specials[i].special}}`;
+            }
+            code += "];this.passives=[";
+            for(var i = 0; i < bey.passives.length; i++){
+                if(i >= 1) code += ",";
+                code += `{name:"${bey.passives[i].name}",requires:${bey.passives[i].requirement},execute:${bey.passives[i].passive}}`;
+            }
+            code += "];";
+            for(var i = 0; i < bey.modes.length; i++){
+                code += `this.${bey.modes[i].trim()} = {active:${bey.modes[i].activateOnStart},requires:${bey.modes[i].requirement},boost:${bey.modes[i].mode}};`
+            }
+            let directions = {"right": 0, "left": 1};
+            code += `this.sd=${directions[bey.sd.toLowerCase()] || 0};this.sdchangable=${bey.sdchangable}`;
+            code += `}}module.exports=${shortened};`
+            let minified = UglifyJS.minify(code)
+            fs.writeFileSync(`${this.outputPath}/${shortened}.js`, minified.error || minified.code);
         });
         return this.outputPath;
     }
